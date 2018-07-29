@@ -1,10 +1,12 @@
 FROM ubuntu:16.04
 
 ADD https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb /tmp
+ADD https://deb.nodesource.com/setup_8.x /tmp/setupnode
 
 RUN dpkg -i /tmp/erlang-solutions_1.0_all.deb && \
+  cat /tmp/setupnode | bash - && \
   apt update && \
-  apt install -y esl-erlang=1:20.0 elixir=1.5.0-1 locales build-essential && \
+  apt install -y esl-erlang=1:20.0 elixir=1.5.0-1 locales build-essential inotify-tools nodejs npm && \
   apt-mark hold esl-erlang elixir && \
   locale-gen en_US.UTF-8
   
